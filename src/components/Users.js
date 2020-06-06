@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { asyncUsers } from '../redux/users/actions';
 import { Redirect } from 'react-router-dom';
 
-const Users = ({ currentUser, users, fetchUsers }) => {
+const Users = ({ currentUser, users, asyncUsers }) => {
   useEffect(() => {
-    fetchUsers();
+    asyncUsers();
   }, []);
 
   if (!currentUser.isAuth) {
@@ -25,9 +25,9 @@ const Users = ({ currentUser, users, fetchUsers }) => {
           <svg
             className="absolute w-6 h-6 top-0 m-2"
             fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
@@ -82,7 +82,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUsers: () => dispatch(asyncUsers()),
+    asyncUsers: () => dispatch(asyncUsers()),
   };
 };
 
