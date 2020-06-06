@@ -5,4 +5,8 @@ export {
   userSignout,
 } from './authUser/actions';
 export { addError, clearError } from './error/actions';
-export { asyncUsers } from './users/actions';
+export {
+  asyncUsers,
+  sortUserByAscOrder,
+  sortUserByDescOrder,
+} from './users/actions';

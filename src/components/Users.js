@@ -1,9 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { asyncUsers } from '../redux/users/actions';
+import {
+  asyncUsers,
+  sortUserByAscOrder,
+  sortUserByDescOrder,
+} from '../redux/users/actions';
 import { Redirect } from 'react-router-dom';
 
-const Users = ({ currentUser, users, asyncUsers }) => {
+const Users = ({
+  currentUser,
+  users,
+  asyncUsers,
+  sortUserByAscOrder,
+  sortUserByDescOrder,
+}) => {
+  const [order, setOrder] = useState(true);
+
   useEffect(() => {
     asyncUsers();
   }, []);
@@ -11,6 +23,14 @@ const Users = ({ currentUser, users, asyncUsers }) => {
   if (!currentUser.isAuth) {
     return <Redirect to="/" />;
   }
+
+  const handleClick = (data, order) => {
+    if (!order) {
+      sortUserByAscOrder(data);
+    } else {
+      sortUserByDescOrder(data);
+    }
+  };
 
   return (
     <>
@@ -24,9 +44,9 @@ const Users = ({ currentUser, users, asyncUsers }) => {
           <svg
             className="absolute w-6 h-6 top-0 m-2"
             fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
@@ -40,12 +60,138 @@ const Users = ({ currentUser, users, asyncUsers }) => {
             <thead className="bg-gray-100">
               <tr>
                 <td className="px-4 py-2 text-gray-900 font-bold">Id</td>
-                <td className="px-4 py-2 text-gray-900 font-bold">Username</td>
-                <td className="px-4 py-2 text-gray-900 font-bold">Email</td>
-                <td className="px-4 py-2 text-gray-900 font-bold">Address</td>
-                <td className="px-4 py-2 text-gray-900 font-bold">Phone</td>
-                <td className="px-4 py-2 text-gray-900 font-bold">Website</td>
-                <td className="px-4 py-2 text-gray-900 font-bold">Company</td>
+                <td className="px-4 py-2 text-gray-900 font-bold">
+                  <button
+                    className="flex items-center flex-no-shrink transition duration-200 hover:text-indigo-500 focus:outline-none"
+                    onClick={() => {
+                      setOrder(!order);
+                      handleClick('username', order);
+                    }}
+                  >
+                    <span>Username</span>
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                    </svg>
+                  </button>
+                </td>
+                <td className="px-4 py-2 text-gray-900 font-bold">
+                  <button
+                    className="flex items-center flex-no-shrink transition duration-200 hover:text-indigo-500 focus:outline-none"
+                    onClick={() => {
+                      setOrder(!order);
+                      handleClick('email', order);
+                    }}
+                  >
+                    <span>Email</span>
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                    </svg>
+                  </button>
+                </td>
+                <td className="px-4 py-2 text-gray-900 font-bold">
+                  <button
+                    className="flex items-center flex-no-shrink transition duration-200 hover:text-indigo-500 focus:outline-none"
+                    onClick={() => {
+                      setOrder(!order);
+                      handleClick('[address.street]', order);
+                    }}
+                  >
+                    <span>Address</span>
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                    </svg>
+                  </button>
+                </td>
+                <td className="px-4 py-2 text-gray-900 font-bold">
+                  <button
+                    className="flex items-center flex-no-shrink transition duration-200 hover:text-indigo-500 focus:outline-none"
+                    onClick={() => {
+                      setOrder(!order);
+                      handleClick('phone', order);
+                    }}
+                  >
+                    <span>Phone</span>
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                    </svg>
+                  </button>
+                </td>
+                <td className="px-4 py-2 text-gray-900 font-bold">
+                  <button
+                    className="flex items-center flex-no-shrink transition duration-200 hover:text-indigo-500 focus:outline-none"
+                    onClick={() => {
+                      setOrder(!order);
+                      handleClick('website', order);
+                    }}
+                  >
+                    <span>Website</span>
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                    </svg>
+                  </button>
+                </td>
+                <td className="px-4 py-2 text-gray-900 font-bold">
+                  <button
+                    className="flex items-center flex-no-shrink transition duration-200 hover:text-indigo-500 focus:outline-none"
+                    onClick={() => {
+                      setOrder(!order);
+                      handleClick('company', order);
+                    }}
+                  >
+                    <span>Company</span>
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                    </svg>
+                  </button>
+                </td>
               </tr>
             </thead>
             <tbody>
@@ -82,6 +228,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     asyncUsers: () => dispatch(asyncUsers()),
+    sortUserByAscOrder: (data) => dispatch(sortUserByAscOrder(data)),
+    sortUserByDescOrder: (data) => dispatch(sortUserByDescOrder(data)),
   };
 };
 

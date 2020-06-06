@@ -1,4 +1,10 @@
-import { USER_REQUEST, USER_SUCCESS, USER_FAILURE } from './types';
+import {
+  USER_REQUEST,
+  USER_SUCCESS,
+  USER_FAILURE,
+  SORT_USER_BY_ASC_ORDER,
+  SORT_USER_BY_DESC_ORDER,
+} from './types';
 import { addError } from '../error/actions';
 import axios from 'axios';
 
@@ -21,6 +27,20 @@ const userFailure = () => {
   };
 };
 
+export const sortUserByAscOrder = (payload) => {
+  return {
+    type: SORT_USER_BY_ASC_ORDER,
+    payload,
+  };
+};
+
+export const sortUserByDescOrder = (payload) => {
+  return {
+    type: SORT_USER_BY_DESC_ORDER,
+    payload,
+  };
+};
+
 export const asyncUsers = () => {
   return (dispatch) => {
     dispatch(userRequest());
@@ -30,7 +50,6 @@ export const asyncUsers = () => {
       .then((res) => dispatch(userSuccess(res.data)))
       .catch((err) => {
         dispatch(userFailure());
-        dispatch(addError(err.response.message));
       });
   };
 };
