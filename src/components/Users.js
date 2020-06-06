@@ -36,7 +36,7 @@ const Users = ({ currentUser, users, asyncUsers }) => {
       </form>
       {!users.loading && users.data && (
         <div className="overflow-x-auto">
-          <table className="table-auto">
+          <table className="w-full">
             <thead className="bg-gray-100">
               <tr>
                 <td className="px-4 py-2 text-gray-900 font-bold">Id</td>

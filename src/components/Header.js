@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userSignout } from '../redux/index';
 
-const Header = ({ isLoading, user, signout }) => {
+const Header = ({ user, signout }) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
