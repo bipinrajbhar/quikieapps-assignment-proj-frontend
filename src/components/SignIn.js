@@ -19,7 +19,7 @@ const validationSchema = yup.object({
   password: yup.string().required('Please provide the password'),
 });
 
-const SignUp = ({ user, signin, error, clearError }) => {
+const SignUp = ({ match, user, signin, error, clearError }) => {
   useEffect(() => {
     clearError();
   }, []);

@@ -9,7 +9,6 @@ const Users = ({ currentUser, users, asyncUsers }) => {
   }, []);
 
   if (!currentUser.isAuth) {
-    console.log(currentUser);
     return <Redirect to="/" />;
   }
 

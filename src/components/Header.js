@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userSignout } from '../redux/index';
 
-const Header = ({ user, signout }) => {
+const Header = ({ isLoading, user, signout }) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -49,12 +49,20 @@ const Header = ({ user, signout }) => {
                   />
                 </button>
                 <ul
-                  className={`bg-white  absolute right-0 mt-4 w-48 border-2 border-gray-900 rounded-md py-2  z-50 ${
+                  className={`absolute bg-white right-0 mt-4 w-48 border-2 border-gray-900 rounded-md py-2 z-50 ${
                     open ? 'visble' : 'hidden'
                   }`}
                 >
                   <li className="w-full text-center m-2">
                     <a href="#">{user.user.username}</a>
+                  </li>
+                  <li className="w-full text-center m-2">
+                    <Link
+                      className="border-b-2 border-transparent hover:border-gray-900 transition duration-200"
+                      to="/users/"
+                    >
+                      Users
+                    </Link>
                   </li>
                   <li className="w-full text-center m-2">
                     <button

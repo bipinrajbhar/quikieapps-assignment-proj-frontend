@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './components/Header';
 import SignUp from './components/SignUp';
@@ -7,7 +7,7 @@ import SignIn from './components/SignIn';
 import Users from './components/Users';
 import { asyncUserAutoSignin } from './redux/index';
 
-function App({ user, autoSignin }) {
+function App({ autoSignin }) {
   useEffect(() => {
     autoSignin();
   }, []);
@@ -25,17 +25,10 @@ function App({ user, autoSignin }) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    user: state.currentUser,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     autoSignin: () => dispatch(asyncUserAutoSignin()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
