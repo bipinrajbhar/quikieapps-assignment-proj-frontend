@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Header from './components/Header';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+import Users from './components/Users';
+import { asyncUserAutoSignin } from './redux/index';
 
-function App() {
+function App({ user, autoSignin }) {
+  useEffect(() => {
+    autoSignin();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <main className="container mx-auto p-6">
+        <Switch>
+          <Route exact path="/signup/" component={SignUp} />
+          <Route exact path="/signin/" component={SignIn} />
+          <Route exact path="/users/" component={Users} />
+        </Switch>
+      </main>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    user: state.currentUser,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    autoSignin: () => dispatch(asyncUserAutoSignin()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
