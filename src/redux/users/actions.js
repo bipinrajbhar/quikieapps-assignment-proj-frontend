@@ -4,6 +4,7 @@ import {
   USER_FAILURE,
   SORT_USER_BY_ASC_ORDER,
   SORT_USER_BY_DESC_ORDER,
+  SEARCH_USER,
 } from './types';
 import { addError } from '../error/actions';
 import axios from 'axios';
@@ -27,27 +28,15 @@ const userFailure = () => {
   };
 };
 
-export const sortUserByAscOrder = (payload) => {
-  return {
-    type: SORT_USER_BY_ASC_ORDER,
-    payload,
-  };
-};
-
-export const sortUserByDescOrder = (payload) => {
-  return {
-    type: SORT_USER_BY_DESC_ORDER,
-    payload,
-  };
-};
-
 export const asyncUsers = () => {
   return (dispatch) => {
     dispatch(userRequest());
 
     axios
       .get('https://jsonplaceholder.typicode.com/users')
-      .then((res) => dispatch(userSuccess(res.data)))
+      .then((res) => {
+        dispatch(userSuccess(res.data));
+      })
       .catch((err) => {
         dispatch(userFailure());
       });

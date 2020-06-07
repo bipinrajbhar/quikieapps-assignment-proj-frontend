@@ -14,10 +14,6 @@ const initialValues = {
   userImg: '',
 };
 
-const handleSubmit = (values, signup) => {
-  signup(values);
-};
-
 const validationSchema = yup.object({
   username: yup
     .string()
@@ -39,10 +35,18 @@ const validationSchema = yup.object({
   userImg: yup.string().required('Please provide your image'),
 });
 
-const SignUp = ({ user, asyncUserSignup, error, clearError }) => {
+const SignUp = ({ history, user, asyncUserSignup, error, clearError }) => {
   useEffect(() => {
     clearError();
   }, []);
+
+  const handleSubmit = (values, signup) => {
+    signup(values);
+
+    if (user.isAuth) {
+      history.push('/users/');
+    }
+  };
 
   if (user.isAuth) {
     return <Redirect to="/users" />;
@@ -52,7 +56,9 @@ const SignUp = ({ user, asyncUserSignup, error, clearError }) => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => handleSubmit(values, asyncUserSignup)}
+      onSubmit={(values) =>
+        handleSubmit(values, asyncUserSignup, user, history)
+      }
     >
       <Form className="max-w-md mx-auto grid p-6 ">
         {error.msg && <TextError>{error.msg}</TextError>}
@@ -74,7 +80,7 @@ const SignUp = ({ user, asyncUserSignup, error, clearError }) => {
           />
           <ErrorMessage name="email" component={TextError} />
         </div>
-        <div className="mb-4 z-50">
+        <div className="mb-4">
           <Field
             className="w-full border-2 border-gray-900 rounded-md p-2 mb-2 outline-none focus:border-indigo-500"
             type="password"

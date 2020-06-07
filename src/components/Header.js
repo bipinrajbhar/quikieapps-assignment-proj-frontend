@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userSignout } from '../redux/index';
 
-const Header = ({ user, signout }) => {
+const Header = ({ history, user, signout }) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     signout();
+    history.push('/');
   };
   return (
     <header>
@@ -94,4 +95,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

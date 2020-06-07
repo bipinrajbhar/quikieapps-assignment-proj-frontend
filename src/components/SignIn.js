@@ -19,16 +19,21 @@ const validationSchema = yup.object({
   password: yup.string().required('Please provide the password'),
 });
 
-const SignUp = ({ match, user, signin, error, clearError }) => {
+const SignUp = ({ history, user, signin, error, clearError }) => {
   useEffect(() => {
     clearError();
   }, []);
 
   const handleSubmit = (values) => {
     signin(values);
+
+    if (user.isAuth) {
+      history.push('/users/');
+    }
   };
 
   if (user.isAuth) {
+    console.log(user);
     return <Redirect to="/users" />;
   }
 
@@ -36,7 +41,7 @@ const SignUp = ({ match, user, signin, error, clearError }) => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={handleSubmit}
+      onSubmit={(values, history) => handleSubmit(values, history)}
     >
       <Form className="max-w-md mx-auto grid p-6">
         {error.msg && <TextError>{error.msg}</TextError>}

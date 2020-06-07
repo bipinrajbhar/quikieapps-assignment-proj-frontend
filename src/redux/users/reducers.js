@@ -1,10 +1,4 @@
-import {
-  USER_REQUEST,
-  USER_SUCCESS,
-  USER_FAILURE,
-  SORT_USER_BY_ASC_ORDER,
-  SORT_USER_BY_DESC_ORDER,
-} from './types';
+import { USER_REQUEST, USER_SUCCESS, USER_FAILURE } from './types';
 import _ from 'lodash-es';
 
 const initialState = {
@@ -29,16 +23,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-      };
-    case SORT_USER_BY_ASC_ORDER:
-      return {
-        ...state,
-        data: _.sortBy(state.data, action.payload),
-      };
-    case SORT_USER_BY_DESC_ORDER:
-      return {
-        ...state,
-        data: _.sortBy(state.data, action.payload).reverse(),
       };
     default:
       return state;

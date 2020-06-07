@@ -110,7 +110,7 @@ export const asyncUserAutoSignin = (data) => {
           dispatch(userAutoSignin(res.data));
         })
         .catch((err) => {
-          console.log(err);
+          dispatch(userSigninFailure());
         });
     }
   };
